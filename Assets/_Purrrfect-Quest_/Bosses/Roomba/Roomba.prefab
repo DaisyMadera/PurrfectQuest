@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 4905406860826509264}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.1343, y: -0.1343, z: 0}
+  m_LocalScale: {x: 1.2686, y: 1.2686, z: 1.2686}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7152455953968518755}
@@ -83,14 +83,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39d91173c2cbc4a4e8caf2381e0a8c81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 5
-  chaseSpeed: 2
+  detectionRange: 3
+  chaseSpeed: 1.5
   wanderSpeed: 1.5
   maxHealth: 5
   damageToPlayer: 1
   bounceForce: 5000
   healthBarCanvas: {fileID: 8040360247126344097}
   damageCooldown: 3
+  obstacleLayers:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!50 &3778138943562872633
 Rigidbody2D:
   serializedVersion: 4
@@ -158,7 +161,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

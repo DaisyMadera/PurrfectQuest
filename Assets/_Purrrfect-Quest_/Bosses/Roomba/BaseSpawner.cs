@@ -30,7 +30,6 @@ public class BaseSpawner : MonoBehaviour
             // Spawn the base
             Instantiate(basePrefab, spawnLocation.position, spawnLocation.rotation);
 
-            // Remove used spawn point
             availableSpawnPoints.RemoveAt(randomIndex);
         }
     }

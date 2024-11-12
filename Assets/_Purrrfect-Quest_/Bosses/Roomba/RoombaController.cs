@@ -55,7 +55,7 @@ public class RoombaController : MonoBehaviour
         healthBarCanvas.gameObject.SetActive(false);
 
         // Start wandering
-        InvokeRepeating("SetRandomDirection", 0f, 2f); // Change direction every 2 seconds
+        InvokeRepeating("SetRandomDirection", 0f, 1f); // Change direction every 2 seconds
     }
 
     void Update()
@@ -140,7 +140,7 @@ public class RoombaController : MonoBehaviour
         if (currentHealth <= 0)
         {
             Destroy(gameObject);
-            // Optionally spawn effects or items
+            // Add effects when it dies
         }
     }
 

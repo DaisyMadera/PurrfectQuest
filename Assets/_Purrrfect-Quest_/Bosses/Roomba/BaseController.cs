@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class BaseController : MonoBehaviour
 {
-    public float maxHealth = 50f;
+    public float maxHealth = 3f;
     private float currentHealth;
 
     public Canvas healthBarCanvas; // Assign the Canvas in the Inspector
