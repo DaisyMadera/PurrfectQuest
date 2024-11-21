@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RoombaController : MonoBehaviour
+public class RoombaController : MonoBehaviour, IDamageable
 {
     public float detectionRange = 5f;
     public float chaseSpeed = 3f;
@@ -20,7 +20,7 @@ public class RoombaController : MonoBehaviour
     private GameManager gameManager;
 
     public Canvas healthBarCanvas; // Assign the Canvas in the Inspector
-    private Image healthBar;
+    public Image healthBarImage;
 
     // Damage cooldown variables
     private bool canDamagePlayer = true;
@@ -44,9 +44,7 @@ public class RoombaController : MonoBehaviour
 
         gameManager = GameObject.FindObjectOfType<GameManager>();
 
-        // Get the Image component from the Canvas
-        healthBar = healthBarCanvas.GetComponent<Image>();
-        if (healthBar == null)
+        if (healthBarImage == null)
         {
             Debug.LogError("No Image component found on the healthBarCanvas. Please add an Image component to the Canvas.");
         }
@@ -81,7 +79,6 @@ public class RoombaController : MonoBehaviour
         if (!canTakeDamage && gameManager.AllBasesDestroyed())
         {
             canTakeDamage = true;
-            // Show health bar
             healthBarCanvas.gameObject.SetActive(true);
         }
     }
@@ -132,9 +129,12 @@ public class RoombaController : MonoBehaviour
     public void TakeDamage(float damage)
     {
         if (!canTakeDamage)
+        {
             return;
-
+        }
         currentHealth -= damage;
+        currentHealth = Mathf.Max(currentHealth, 0);
+
         UpdateHealthBar();
 
         if (currentHealth <= 0)
@@ -146,9 +146,9 @@ public class RoombaController : MonoBehaviour
 
     void UpdateHealthBar()
     {
-        if (healthBar != null)
+        if (healthBarImage != null)
         {
-            healthBar.fillAmount = currentHealth / maxHealth;
+            healthBarImage.fillAmount = currentHealth / maxHealth;
         }
     }
 }

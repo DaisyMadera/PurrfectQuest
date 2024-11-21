@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BaseController : MonoBehaviour
+public class BaseController : MonoBehaviour, IDamageable
 {
     public float maxHealth = 3f;
     private float currentHealth;
 
-    public Canvas healthBarCanvas; // Assign the Canvas in the Inspector
-    private Image healthBar;
+    public Canvas healthBarCanvas;
+    public Image healthBarImage;
 
     private GameManager gameManager;
 
@@ -18,9 +18,7 @@ public class BaseController : MonoBehaviour
         currentHealth = maxHealth;
         gameManager = GameObject.FindObjectOfType<GameManager>();
 
-        // Get the Image component from the Canvas
-        healthBar = healthBarCanvas.GetComponent<Image>();
-        if (healthBar == null)
+        if (healthBarImage == null)
         {
             Debug.LogError("No Image component found on the healthBarCanvas. Please add an Image component to the Canvas.");
         }
@@ -29,6 +27,9 @@ public class BaseController : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
+
+        currentHealth = Mathf.Max(currentHealth, 0);
+
         UpdateHealthBar();
 
         if (currentHealth <= 0)
@@ -40,9 +41,9 @@ public class BaseController : MonoBehaviour
 
     void UpdateHealthBar()
     {
-        if (healthBar != null)
+        if (healthBarImage != null)
         {
-            healthBar.fillAmount = currentHealth / maxHealth;
+            healthBarImage.fillAmount = currentHealth / maxHealth;
         }
     }
 }
