@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour{
 
     [SerializeField] private int speed = 5;
     private Vector2 movement;
+
+    private Vector2 lastMovementDirection;
     private Rigidbody2D rb;
     private Animator animator;
 
@@ -22,6 +24,9 @@ public class PlayerMovement : MonoBehaviour{
             animator.SetFloat("Y", movement.y);
 
             animator.SetBool("IsWalking", true);
+
+            // Update last movement direction
+            lastMovementDirection = movement.normalized; // Ensure it's a unit vector
         }
         else{
             animator.SetBool ("IsWalking", false);
@@ -29,6 +34,8 @@ public class PlayerMovement : MonoBehaviour{
     }
 
     private void FixedUpdate(){
+        
+        
         rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
 
         // if(movement.x != 0 || movement.y != 0){

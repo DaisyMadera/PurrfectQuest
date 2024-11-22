@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    private Animator anim;
     public float attackRange = 1.0f;      // Range of the scratch attack
     public float attackDamage = 20f;      // Damage dealt by the scratch
     public float pushForce = 200f;        // Force applied to push the enemy
@@ -14,6 +15,23 @@ public class PlayerAttack : MonoBehaviour
     private bool canAttack = true;
     public float attackCooldown = 0.2f;
 
+    private Vector2 lastMovementDirection;
+
+
+    void Start()
+    {
+        anim = GetComponent<Animator>(); // Initialize the Animator
+        if (anim == null)
+        {
+            Debug.LogError("Animator component not found on " + gameObject.name);
+        }
+
+        if (attackPoint == null)
+        {
+            Debug.LogError("AttackPoint is not assigned in the Inspector.");
+        }
+    }
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && canAttack)
@@ -22,13 +40,22 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    public void SetLastMovementDirection(Vector2 direction)
+    {
+        if (direction.magnitude > 0.1f)
+            lastMovementDirection = direction.normalized;
+    }
+
     void Scratch()
     {
         canAttack = false;
         StartCoroutine(AttackCooldown());
 
+
         // Play attack animation here
-        // Example: animator.SetTrigger("Scratch");
+        SetScratchAnimation();
+        anim.SetBool("isScratching", true);
+
 
         // Detect enemies in range of the attack
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
@@ -55,9 +82,31 @@ public class PlayerAttack : MonoBehaviour
         }
     }
     
+
+    private void SetScratchAnimation()
+    {
+        if (lastMovementDirection.y > 0.5f) // Up
+        {
+            anim.SetTrigger("Scratch_Up");
+        }
+        else if (lastMovementDirection.y < -0.5f) // Down
+        {
+            anim.SetTrigger("Scratch_Down");
+        }
+        else if (lastMovementDirection.x > 0.5f) // Right
+        {
+            anim.SetTrigger("Scratch_Right");
+        }
+        else if (lastMovementDirection.x < -0.5f) // Left
+        {
+            anim.SetTrigger("Scratch_Left");
+        }
+    }
+
     private IEnumerator AttackCooldown()
     {
         yield return new WaitForSeconds(attackCooldown);
+        anim.SetBool("isScratching", false);
         canAttack = true;
     }
 

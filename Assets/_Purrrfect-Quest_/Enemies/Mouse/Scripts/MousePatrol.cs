@@ -27,7 +27,7 @@ public class MousePatrol : MonoBehaviour
             targetPoint = 1;
 
             // Trigger the new animation
-            animator.SetTrigger("Mouse_IdleLeft"); // Assumes you have an animation trigger named "RunAway"
+            //animator.SetTrigger("Mouse_IdleLeft"); // Assumes you have an animation trigger named "RunAway"
         }
 
         // Move towards the target point

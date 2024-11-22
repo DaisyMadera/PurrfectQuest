@@ -8,7 +8,8 @@ using UnityEngine.SceneManagement;
 public class CharacterHealth : MonoBehaviour
 {
     [SerializeField] private float startingHealth;
-    public float currentHealth{get; private set;}
+    public float currentHealth; // Now public and visible in Inspector
+    public float StartingHealth => startingHealth; // Public getter for starting health
     private Animator anim;
     private bool dead;
 
@@ -70,4 +71,14 @@ public class CharacterHealth : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    public void Heal(float amount)
+    {
+        if (!dead) // Ensure the player isn't dead
+        {
+            currentHealth = Mathf.Clamp(currentHealth + amount, 0, startingHealth);
+        }
+    }
 }
+
+
