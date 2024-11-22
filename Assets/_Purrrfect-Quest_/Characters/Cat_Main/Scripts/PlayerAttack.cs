@@ -13,7 +13,7 @@ public class PlayerAttack : MonoBehaviour
     public Transform attackPoint;         // Point from where the attack originates
 
     private bool canAttack = true;
-    public float attackCooldown = 0.2f;
+    public float attackCooldown = 0.4f;
 
     private Vector2 lastMovementDirection;
 
@@ -34,7 +34,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && canAttack)
+        if (Input.GetKeyDown(KeyCode.Space) && canAttack)
         {
             Scratch();
         }

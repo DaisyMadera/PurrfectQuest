@@ -27188,8 +27188,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1929351806}
   normalFOV: 38
-  zoomedFOV: 16
-  zoomSpeed: 6
+  zoomedFOV: 18
+  zoomSpeed: 4
 --- !u!81 &586199836
 AudioListener:
   m_ObjectHideFlags: 0
@@ -30732,7 +30732,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   attackPoint: {fileID: 1770641200}
-  attackCooldown: 0.4
+  attackCooldown: 1.5
 --- !u!1 &2022982123
 GameObject:
   m_ObjectHideFlags: 0
