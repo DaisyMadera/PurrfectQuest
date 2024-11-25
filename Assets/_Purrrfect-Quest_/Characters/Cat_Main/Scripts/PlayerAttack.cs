@@ -36,6 +36,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && canAttack)
         {
+            print("key pusheds");
             Scratch();
         }
     }
@@ -52,7 +53,10 @@ public class PlayerAttack : MonoBehaviour
         StartCoroutine(AttackCooldown());
 
 
-        // Play attack animation here
+        // Set last movement direction based on input
+        Vector2 movementDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        SetLastMovementDirection(movementDirection);
+
         SetScratchAnimation();
         anim.SetBool("isScratching", true);
 
@@ -85,22 +89,23 @@ public class PlayerAttack : MonoBehaviour
 
     private void SetScratchAnimation()
     {
-        if (lastMovementDirection.y > 0.5f) // Up
-        {
-            anim.SetTrigger("Scratch_Up");
-        }
-        else if (lastMovementDirection.y < -0.5f) // Down
-        {
-            anim.SetTrigger("Scratch_Down");
-        }
-        else if (lastMovementDirection.x > 0.5f) // Right
-        {
-            anim.SetTrigger("Scratch_Right");
-        }
-        else if (lastMovementDirection.x < -0.5f) // Left
-        {
-            anim.SetTrigger("Scratch_Left");
-        }
+        print("setscratch");
+        // if (lastMovementDirection.y > 0.5f) // Up
+        // {
+        //     anim.SetTrigger("Scratch_Up");
+        // }
+        // else if (lastMovementDirection.y < -0.5f) // Down
+        // {
+        //     anim.SetTrigger("Scratch_Down");
+        // }
+        // else if (lastMovementDirection.x > 0.5f) // Right
+        // {
+        //     anim.SetTrigger("Scratch_Right");
+        // }
+        // else if (lastMovementDirection.x < -0.5f) // Left
+        // {
+        //     anim.SetTrigger("Scratch_Left");
+        // }
     }
 
     private IEnumerator AttackCooldown()

@@ -1,46 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Fish : MonoBehaviour
 {
-    
+    [SerializeField] private float healAmount = 1; // Amount of health the fish restores
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        print("Collision happened");
-        Debug.Log($"Collision detected with {collision.gameObject.name}");
+        Debug.Log($"Trigger detected with: {collision.gameObject.name}");
+
+        // Try to get the CharacterHealth component
+        CharacterHealth playerHealth = collision.GetComponent<CharacterHealth>();
+
+        if (playerHealth != null && collision.CompareTag("Player"))
+        {
+            Debug.Log("Player detected. Attempting to heal...");
+
+            // Heal the player if they are not at full health
+            if (playerHealth.currentHealth < playerHealth.StartingHealth)
+            {
+                Debug.Log("Healing the player...");
+                playerHealth.Heal(healAmount);
+
+                // Destroy the fish after healing
+                Destroy(gameObject);
+            }
+            else
+            {
+                Debug.Log("Player is already at full health.");
+            }
+        }
     }
-
 }
-
-// [SerializeField] private float healAmount = 1; // Amount of health the fish restores
-
-    // void Start(){
-
-    // }
-    // private void OnCollisionEnter2D(Collision2D collision)
-    // {
-    //     print("Collision happened");
-    //     print($"Collided with: {collision.gameObject.name}");
-
-    //     // Access the game object that collided
-    //     CharacterHealth playerHealth = collision.transform.root.GetComponent<CharacterHealth>();
-    //     print(playerHealth);
-    //     if (playerHealth != null)
-    //     {
-    //         print("Player health is not null");
-    //         print(collision.gameObject.root.CompareTag("Player"));
-    //         print((playerHealth.currentHealth < playerHealth.StartingHealth));
-    //         // Check if the player's health is less than full
-    //         if (collision.gameObject.root.CompareTag("Player") && (playerHealth.currentHealth < playerHealth.StartingHealth))
-    //         {
-    //             print("Healing the player...");
-    //             // Heal the player
-    //             playerHealth.Heal(healAmount);
-
-    //             // Optionally, destroy the fish after healing
-    //             Destroy(gameObject);
-    //         }
-    //     }
-    // }

@@ -12,6 +12,7 @@ public class CharacterHealth : MonoBehaviour
     private Animator anim;
     private bool dead;
     private GameOverScreen gameOverScreen;
+    public float StartingHealth => startingHealth;
 
 
      
@@ -68,6 +69,7 @@ public class CharacterHealth : MonoBehaviour
         if (!dead) // Ensure the player isn't dead
         {
             currentHealth = Mathf.Clamp(currentHealth + amount, 0, startingHealth);
+            Debug.Log($"Player healed. Current health: {currentHealth}/{startingHealth}");
         }
     }
 }
