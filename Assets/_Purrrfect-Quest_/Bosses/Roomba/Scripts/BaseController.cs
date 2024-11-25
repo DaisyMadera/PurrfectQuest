@@ -12,10 +12,12 @@ public class BaseController : MonoBehaviour, IDamageable
     public Image healthBarImage;
 
     private GameManager gameManager;
+    private Animator anim;
 
     void Start()
     {
         currentHealth = maxHealth;
+        anim = GetComponent<Animator>();
         gameManager = GameObject.FindObjectOfType<GameManager>();
 
         if (healthBarImage == null)
@@ -26,6 +28,7 @@ public class BaseController : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damage)
     {
+        anim.SetBool("isHurt", true);
         currentHealth -= damage;
 
         currentHealth = Mathf.Max(currentHealth, 0);
@@ -34,9 +37,11 @@ public class BaseController : MonoBehaviour, IDamageable
 
         if (currentHealth <= 0)
         {
+            anim.SetTrigger("Die");
             Destroy(gameObject);
             gameManager.BaseDestroyed();
         }
+        anim.SetBool("isHurt", false);
     }
 
     void UpdateHealthBar()

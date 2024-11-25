@@ -38,7 +38,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0.7358}
-  m_SizeDelta: {x: 1.25, y: 0.1}
+  m_SizeDelta: {x: 0.71, y: 0.06}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &3487035979124253869
 Canvas:
@@ -146,7 +146,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1.25, y: 0.1}
+  m_SizeDelta: {x: 0.7, y: 0.05}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7212150978518726008
 CanvasRenderer:
@@ -198,6 +198,7 @@ GameObject:
   - component: {fileID: 3672964030395534575}
   - component: {fileID: 4348623838990415480}
   - component: {fileID: 411744376962162489}
+  - component: {fileID: 2232050052459632571}
   m_Layer: 9
   m_Name: Base
   m_TagString: Base
@@ -215,7 +216,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.1835, y: 0.1835, z: 0}
-  m_LocalScale: {x: 0.6329244, y: 0.6329244, z: 0.6329244}
+  m_LocalScale: {x: 1, y: 1, z: 0.6329244}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8504047232768536486}
@@ -262,7 +263,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: -640523081, guid: 1674be33e73444e5aaf7a5d9cabc19a4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -305,10 +306,10 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.16442487}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
@@ -316,7 +317,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.8608712, y: 0.38024455}
   m_EdgeRadius: 0
 --- !u!114 &411744376962162489
 MonoBehaviour:
@@ -333,6 +334,27 @@ MonoBehaviour:
   maxHealth: 3
   healthBarCanvas: {fileID: 3487035979124253869}
   healthBarImage: {fileID: 2961515901029144978}
+--- !u!95 &2232050052459632571
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4445028329029315756}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: be44b23ae47264c9987e3907082d9cc7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5824122614109070894
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,7 +391,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1.25, y: 0.1}
+  m_SizeDelta: {x: 0.71, y: 0.06}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3153352224317148516
 CanvasRenderer:
