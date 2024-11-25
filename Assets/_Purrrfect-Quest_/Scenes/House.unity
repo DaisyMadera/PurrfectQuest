@@ -31382,7 +31382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6f6f9de2fbf9054f82dfccd609c1bea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 0.8
+  attackRange: 1
   attackDamage: 1
   pushForce: 1000
   enemyLayers:

@@ -25,10 +25,12 @@ public class RoombaController : MonoBehaviour, IDamageable
     // Damage cooldown variables
     private bool canDamagePlayer = true;
     public float damageCooldown = 3f;
+    private Animator anim;
 
     void Start()
     {
         currentHealth = maxHealth;
+        anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
 
         // Find the Player object by tag "Player"
@@ -74,6 +76,9 @@ public class RoombaController : MonoBehaviour, IDamageable
             // Wander randomly
             movement = movement.normalized * wanderSpeed;
         }
+        // Update Animator parameters
+        anim.SetFloat("X", movement.x);
+        anim.SetFloat("Y", movement.y);
 
         // Check if all bases are destroyed
         if (!canTakeDamage && gameManager.AllBasesDestroyed())
