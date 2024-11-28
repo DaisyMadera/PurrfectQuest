@@ -36,7 +36,6 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && canAttack)
         {
-            print("key pusheds");
             Scratch();
         }
     }
