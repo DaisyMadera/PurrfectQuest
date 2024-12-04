@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Fish : MonoBehaviour
+public class Cheese : MonoBehaviour
 {
     [SerializeField] private float healAmount = 1; // Amount of health the fish restores
 

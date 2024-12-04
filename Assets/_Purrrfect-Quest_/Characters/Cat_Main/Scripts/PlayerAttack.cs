@@ -51,14 +51,11 @@ public class PlayerAttack : MonoBehaviour
         canAttack = false;
         StartCoroutine(AttackCooldown());
 
-
         // Set last movement direction based on input
         Vector2 movementDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         SetLastMovementDirection(movementDirection);
 
-        SetScratchAnimation();
         anim.SetBool("isScratching", true);
-
 
         // Detect enemies in range of the attack
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
@@ -83,28 +80,6 @@ public class PlayerAttack : MonoBehaviour
                 }
             }
         }
-    }
-    
-
-    private void SetScratchAnimation()
-    {
-        print("setscratch");
-        // if (lastMovementDirection.y > 0.5f) // Up
-        // {
-        //     anim.SetTrigger("Scratch_Up");
-        // }
-        // else if (lastMovementDirection.y < -0.5f) // Down
-        // {
-        //     anim.SetTrigger("Scratch_Down");
-        // }
-        // else if (lastMovementDirection.x > 0.5f) // Right
-        // {
-        //     anim.SetTrigger("Scratch_Right");
-        // }
-        // else if (lastMovementDirection.x < -0.5f) // Left
-        // {
-        //     anim.SetTrigger("Scratch_Left");
-        // }
     }
 
     private IEnumerator AttackCooldown()
