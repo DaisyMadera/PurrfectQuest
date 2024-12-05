@@ -32144,6 +32144,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  dashForce: 5000
+  dashCooldown: 1
 --- !u!114 &1929351811
 MonoBehaviour:
   m_ObjectHideFlags: 0
