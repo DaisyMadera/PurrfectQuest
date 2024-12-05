@@ -38,10 +38,5 @@ public class PlayerMovement : MonoBehaviour{
         
         rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
 
-        // if(movement.x != 0 || movement.y != 0){
-        //     rb.velocity = movement * speed;
-        // }
-
-        //rb.AddForce(movement * speed);
     }
 }
