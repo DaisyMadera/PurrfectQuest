@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    [SerializeField] private AudioClip[] swooshSoundClips;
     private Animator anim;
     public float attackRange = 1.0f;      // Range of the scratch attack
     public float attackDamage = 20f;      // Damage dealt by the scratch
@@ -48,6 +49,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Scratch()
     {
+        SoundFXManager.instance.PlayRandomSoundFXClip(swooshSoundClips, transform, 1f);
         canAttack = false;
         StartCoroutine(AttackCooldown());
 

@@ -163,7 +163,7 @@ MonoBehaviour:
   detectionRange: 3.5
   chaseSpeed: 2
   wanderSpeed: 1.5
-  maxHealth: 3
+  maxHealth: 100
   damageToPlayer: 1
   bounceForce: 5000
   healthBarCanvas: {fileID: 1526732218313807480}
@@ -236,7 +236,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: -2133046737, guid: bb5d4f76144df4a32801bf461959a8d6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

@@ -10,7 +10,7 @@ namespace DACEStudios
     /// <summary>
     /// [INSERT CLASS COMMENT HERE]
     /// </summary>
-    public class Game : Editor
-    {
-    }
+    // public class Game : Editor
+    // {
+    // }
 }

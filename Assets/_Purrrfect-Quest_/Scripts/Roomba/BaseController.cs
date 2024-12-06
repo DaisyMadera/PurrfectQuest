@@ -13,6 +13,7 @@ public class BaseController : MonoBehaviour, IDamageable
 
     private GameManager gameManager;
     private Animator anim;
+    RoombaSpawner roombaSpawner;
 
     void Start()
     {
@@ -28,6 +29,12 @@ public class BaseController : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damage)
     {
+        if (roombaSpawner != null && !roombaSpawner.roombaSpawned)
+        {
+            Debug.Log("Base cannot take damage until the Roomba is spawned.");
+            return;
+        }
+
         anim.SetBool("isHurt", true);
         currentHealth -= damage;
 

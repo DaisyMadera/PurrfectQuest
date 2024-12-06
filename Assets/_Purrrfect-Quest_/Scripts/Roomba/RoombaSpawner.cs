@@ -6,13 +6,14 @@ public class RoombaSpawner : MonoBehaviour
 {
     public GameObject roombaPrefab; // Assign your Roomba prefab
     public Transform[] spawnPoints; // Assign spawn points in the Inspector
+    public bool roombaSpawned = false;
 
     void Start()
     {
-        SpawnRoomba();
+        // SpawnRoomba();
     }
 
-    void SpawnRoomba()
+    public void SpawnRoomba()
     {
         // Ensure there are spawn points assigned
         if (spawnPoints.Length == 0)
@@ -27,5 +28,6 @@ public class RoombaSpawner : MonoBehaviour
 
         // Spawn the Roomba
         Instantiate(roombaPrefab, spawnLocation.position, spawnLocation.rotation);
+        roombaSpawned = true;
     }
 }

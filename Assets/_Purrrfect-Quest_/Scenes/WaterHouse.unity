@@ -27970,6 +27970,7 @@ MonoBehaviour:
   - {fileID: 17290718}
   - {fileID: 738867518}
   - {fileID: 829873592}
+  roombaSpawned: 0
 --- !u!1 &984787594
 GameObject:
   m_ObjectHideFlags: 0
@@ -31457,10 +31458,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1929351805}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98eb8eaf12b1b3a49b5243abba1320fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 11ab0edbe005b624594625a793a0fb79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 5
   dashSpeed: 15
   dashDuration: 0.2
   dashCooldown: 1
@@ -31582,16 +31583,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1929351805}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6f6f9de2fbf9054f82dfccd609c1bea, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ac300ca9585fb448899e305da03909e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swooshSoundClips: []
   attackRange: 1
-  attackDamage: 1
-  pushForce: 1000
+  attackDamage: 20
+  pushForce: 200
   enemyLayers:
     serializedVersion: 2
-    m_Bits: 512
-  attackPoint: {fileID: 1770641200}
+    m_Bits: 0
+  attackPoint: {fileID: 0}
   attackCooldown: 0.4
 --- !u!1 &2022982123
 GameObject:

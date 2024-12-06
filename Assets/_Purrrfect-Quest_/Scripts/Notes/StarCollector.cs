@@ -8,6 +8,7 @@ public class StarCollector : MonoBehaviour
     public int totalStars = 5; // Total number of stars to collect
     public int starsCollected = 0; // Current count of collected stars
     public TextMeshProUGUI starCounterText; // Reference to the HUD text
+    public RoombaSpawner roombaSpawner;
 
     void Start()
     {
@@ -22,13 +23,16 @@ public class StarCollector : MonoBehaviour
         // Check if all stars are collected
         if (starsCollected >= totalStars)
         {
-            Debug.Log("All stars collected!");
-            // we should have win condition or anything here
+            Debug.Log("All Notes are collected!");
+            if (roombaSpawner != null)
+            {
+                roombaSpawner.SpawnRoomba();
+            }
         }
     }
 
     void UpdateStarCounter()
     {
-        starCounterText.text = "Stars: " + starsCollected + "/" + totalStars;
+        starCounterText.text = "Notes: " + starsCollected + "/" + totalStars;
     }
 }
