@@ -49,7 +49,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Scratch()
     {
-        SoundFXManager.instance.PlayRandomSoundFXClip(swooshSoundClips, transform, 1f);
+        //SoundFXManager.instance.PlayRandomSoundFXClip(swooshSoundClips, transform, 1f);
         canAttack = false;
         StartCoroutine(AttackCooldown());
 

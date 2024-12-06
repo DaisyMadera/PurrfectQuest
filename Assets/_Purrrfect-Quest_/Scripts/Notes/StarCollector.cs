@@ -33,6 +33,6 @@ public class StarCollector : MonoBehaviour
 
     void UpdateStarCounter()
     {
-        starCounterText.text = "Notes: " + starsCollected + "/" + totalStars;
+        starCounterText.text = "Collect all the Notes: " + starsCollected + "/" + totalStars;
     }
 }
