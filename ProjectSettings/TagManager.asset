@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Base
   - Roomba
+  - Star
   layers:
   - Default
   - TransparentFX
@@ -18,8 +19,8 @@ TagManager:
   - Spike
   - Enemy
   - PowerUps
-  - 
-  - 
+  - Stars
+  - Puddle
   - 
   - 
   - 

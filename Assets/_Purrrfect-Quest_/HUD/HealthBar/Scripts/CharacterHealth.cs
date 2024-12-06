@@ -9,28 +9,26 @@ public class CharacterHealth : MonoBehaviour
 {
     [SerializeField] private float startingHealth;
     public float currentHealth; // Now public and visible in Inspector
-    public float StartingHealth => startingHealth; // Public getter for starting health
     private Animator anim;
     private bool dead;
+    private GameOverScreen gameOverScreen;
+    public float StartingHealth => startingHealth;
 
-    public GameObject gameOverScreen;
-    public Button restartButton;
 
-    private void Start(){
-        gameOverScreen.SetActive(false);
-        restartButton.onClick.AddListener(RestartGame);
-    } 
+     
     private void Awake ()
     {
         currentHealth = startingHealth;
         anim = GetComponent < Animator>();
+        
+        // Find the GameOverScreen in the scene
+        gameOverScreen = FindObjectOfType<GameOverScreen>();
     }
     public void TakeDamage(float damage)
     {
         currentHealth= Mathf.Clamp( currentHealth - damage,0, startingHealth);
         
          
-
         if (currentHealth > 0)
         {
             anim.SetTrigger("hurt");//player hurt 
@@ -54,29 +52,24 @@ public class CharacterHealth : MonoBehaviour
             AnimatorStateInfo stateInfo= anim.GetCurrentAnimatorStateInfo(0);
             float normalizedTime = Mathf.Clamp(stateInfo.normalizedTime, 0f, 1f);
 
-            if (stateInfo.IsName ("Die") && normalizedTime  >= 1f)
+            if (gameOverScreen != null)
             {
-                ShowGameOver();
-                break;
+                gameOverScreen.ShowGameOver(); // Call the ShowGameOver method
             }
             yield return null;
         }
 
     }
-    private void ShowGameOver(){
-        gameOverScreen.SetActive(true);
-    }
     
-    private void RestartGame()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+    
+    
 
     public void Heal(float amount)
     {
         if (!dead) // Ensure the player isn't dead
         {
             currentHealth = Mathf.Clamp(currentHealth + amount, 0, startingHealth);
+            Debug.Log($"Player healed. Current health: {currentHealth}/{startingHealth}");
         }
     }
 }
