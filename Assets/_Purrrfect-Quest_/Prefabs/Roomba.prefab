@@ -169,6 +169,7 @@ MonoBehaviour:
   healthBarCanvas: {fileID: 1526732218313807480}
   healthBarImage: {fileID: 1909542535422479770}
   damageCooldown: 3
+  dropItemPrefab: {fileID: 1608178659244822669, guid: 097997ad8a05c2a4395ea3eef65371ec, type: 3}
 --- !u!50 &3778138943562872633
 Rigidbody2D:
   serializedVersion: 4

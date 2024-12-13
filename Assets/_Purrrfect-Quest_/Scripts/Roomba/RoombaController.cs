@@ -147,8 +147,7 @@ public class RoombaController : MonoBehaviour, IDamageable
 
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
-            // Add effects when it dies
+            Die();
         }
     }
 
