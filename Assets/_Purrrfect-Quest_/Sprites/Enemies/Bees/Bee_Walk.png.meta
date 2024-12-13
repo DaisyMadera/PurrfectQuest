@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e4cb683fafffe4ae698ab059981bedfe
+guid: 3c16f98b07ab8466b9db8a9f0aaa7165
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -93,17 +93,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bee_Attack_0
+      name: Bee_Walk_0
       rect:
         serializedVersion: 2
-        x: 23
-        y: 216
-        width: 18
-        height: 19
+        x: 13
+        y: 207
+        width: 39
+        height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a24f09d9884954f79b1b074b225aa273
-      internalID: -1697480707
+      spriteID: 7f97f97a625b543a18aed8aebd721b90
+      internalID: -652693389
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bee_Attack_1
+      name: Bee_Walk_1
       rect:
         serializedVersion: 2
-        x: 83
-        y: 216
-        width: 27
-        height: 25
+        x: 77
+        y: 213
+        width: 43
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,103 +145,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4bb84f516d38040c09c0093e5e70d4af
-      internalID: 1814368759
+      spriteID: f46c33f29875c458cab321723ea303af
+      internalID: -953026891
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bee_Attack_2
+      name: Bee_Walk_2
       rect:
         serializedVersion: 2
-        x: 143
-        y: 215
-        width: 34
-        height: 26
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a458fde82d2e44861b9f6aeffc1f54a7
-      internalID: 1644921762
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bee_Attack_3
-      rect:
-        serializedVersion: 2
-        x: 210
-        y: 212
+        x: 146
+        y: 211
         width: 26
-        height: 28
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 41b8e63c129ff42cab1e623d4f432da4
-      internalID: -197140373
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bee_Attack_4
-      rect:
-        serializedVersion: 2
-        x: 24
-        y: 150
-        width: 18
-        height: 25
-      alignment: 9
-      pivot: {x: 0.54023254, y: 0.52560353}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 753a102adcd954b3ea5f48662dec00d4
-      internalID: -1481647982
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bee_Attack_5
-      rect:
-        serializedVersion: 2
-        x: 79
-        y: 147
-        width: 27
-        height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bad210c1d774242beb5bab02d8798d54
-      internalID: 41472265
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bee_Attack_6
-      rect:
-        serializedVersion: 2
-        x: 149
-        y: 147
-        width: 21
         height: 35
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -237,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b97d4665f6fae4a70a7b92378599cad8
-      internalID: -1189634360
+      spriteID: fdd1ee2e452484be7b6b1b1d51f2d3ca
+      internalID: -1050396695
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bee_Attack_7
+      name: Bee_Walk_3
       rect:
         serializedVersion: 2
-        x: 211
-        y: 152
-        width: 29
-        height: 28
+        x: 209
+        y: 208
+        width: 30
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -258,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 36a5ac78199d943ebb594b604b2be1c0
-      internalID: -1297115563
+      spriteID: c2962565aa09d40a2a5d084fffeaccfd
+      internalID: 1357442035
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bee_Attack_8
+      name: Bee_Walk_4
       rect:
         serializedVersion: 2
-        x: 18
-        y: 85
-        width: 22
-        height: 29
+        x: 11
+        y: 147
+        width: 43
+        height: 37
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -279,20 +208,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5d3eed804ad284f159f3bd7586cd25ef
-      internalID: -1041830020
+      spriteID: daa4b068d227a47c8ad53407f1d82ea3
+      internalID: 300144787
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bee_Attack_9
+      name: Bee_Walk_5
       rect:
         serializedVersion: 2
-        x: 89
-        y: 86
-        width: 22
-        height: 27
+        x: 74
+        y: 143
+        width: 46
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -300,124 +229,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c87f1cc63df641f7a68b9d060e76a09
-      internalID: -1832421900
+      spriteID: f2e296e6c6c4740ca8e3b0a28d2c059d
+      internalID: 702911725
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bee_Attack_10
+      name: Bee_Walk_6
       rect:
         serializedVersion: 2
-        x: 149
-        y: 84
-        width: 22
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5e49747f188a2426aa1664920e2b58df
-      internalID: 1366858466
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bee_Attack_11
-      rect:
-        serializedVersion: 2
-        x: 213
-        y: 84
-        width: 19
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3a44ec7d2199d4856b3cd6c5a671ca40
-      internalID: 1668941137
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bee_Attack_12
-      rect:
-        serializedVersion: 2
-        x: 21
-        y: 26
-        width: 22
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4b33ea0e9e07242d6b1734306d1633f6
-      internalID: 1500920965
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bee_Attack_13
-      rect:
-        serializedVersion: 2
-        x: 86
-        y: 25
-        width: 19
-        height: 28
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 73efd330f7e2b43cc9add14827761b7b
-      internalID: -1518488918
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bee_Attack_14
-      rect:
-        serializedVersion: 2
-        x: 149
-        y: 24
-        width: 25
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bf1e9f714e2844b228e04e2caed7ae97
-      internalID: -707483629
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bee_Attack_15
-      rect:
-        serializedVersion: 2
-        x: 214
-        y: 24
-        width: 19
+        x: 143
+        y: 147
+        width: 35
         height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -426,8 +250,197 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fd0cc79620018466d9fa9b3ef3d07e1a
-      internalID: 676293055
+      spriteID: 39cb234b027514b2db5ece6fa6f08c1e
+      internalID: -803339084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bee_Walk_7
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 151
+        width: 40
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4cf7e45bea96d49e781bbf9245c6e46b
+      internalID: 732324805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bee_Walk_8
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 86
+        width: 31
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ebb6fc9ef0ec47c8974c8d8b2572807
+      internalID: -1651236114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bee_Walk_9
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 80
+        width: 44
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd1b692c0edb64743bb4836817b3f21c
+      internalID: 1191466021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bee_Walk_10
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 86
+        width: 40
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c48e040ae5a6645f383cee0a22b7289e
+      internalID: -2138191129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bee_Walk_11
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 92
+        width: 32
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4452c6fb63e794ae691998dca7fc2acf
+      internalID: 1781519398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bee_Walk_12
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 20
+        width: 45
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc388adbe0dc541238e292cb582b8eaa
+      internalID: -1695725837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bee_Walk_13
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 26
+        width: 45
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ae3508f34116420fb825a1709b6e15f
+      internalID: -995176120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bee_Walk_14
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 24
+        width: 35
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 464a21fc973924061a3e07abddf103aa
+      internalID: 1128086869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bee_Walk_15
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 26
+        width: 49
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2a77249f1c0b449c9b5e16bbdc3d30c
+      internalID: 1508857412
       vertices: []
       indices: 
       edges: []
@@ -443,22 +456,22 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Bee_Attack_0: -1697480707
-      Bee_Attack_1: 1814368759
-      Bee_Attack_10: 1366858466
-      Bee_Attack_11: 1668941137
-      Bee_Attack_12: 1500920965
-      Bee_Attack_13: -1518488918
-      Bee_Attack_14: -707483629
-      Bee_Attack_15: 676293055
-      Bee_Attack_2: 1644921762
-      Bee_Attack_3: -197140373
-      Bee_Attack_4: -1481647982
-      Bee_Attack_5: 41472265
-      Bee_Attack_6: -1189634360
-      Bee_Attack_7: -1297115563
-      Bee_Attack_8: -1041830020
-      Bee_Attack_9: -1832421900
+      Bee_Walk_0: -652693389
+      Bee_Walk_1: -953026891
+      Bee_Walk_10: -2138191129
+      Bee_Walk_11: 1781519398
+      Bee_Walk_12: -1695725837
+      Bee_Walk_13: -995176120
+      Bee_Walk_14: 1128086869
+      Bee_Walk_15: 1508857412
+      Bee_Walk_2: -1050396695
+      Bee_Walk_3: 1357442035
+      Bee_Walk_4: 300144787
+      Bee_Walk_5: 702911725
+      Bee_Walk_6: -803339084
+      Bee_Walk_7: 732324805
+      Bee_Walk_8: -1651236114
+      Bee_Walk_9: 1191466021
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
