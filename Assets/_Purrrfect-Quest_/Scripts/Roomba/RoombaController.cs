@@ -27,6 +27,9 @@ public class RoombaController : MonoBehaviour, IDamageable
     public float damageCooldown = 3f;
     private Animator anim;
 
+    public GameObject dropItemPrefab;
+
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -155,5 +158,14 @@ public class RoombaController : MonoBehaviour, IDamageable
         {
             healthBarImage.fillAmount = currentHealth / maxHealth;
         }
+    }
+
+    void Die()
+    {
+        if (dropItemPrefab != null)
+        {
+            Instantiate(dropItemPrefab, transform.position, Quaternion.identity);
+        }
+        Destroy(gameObject);
     }
 }

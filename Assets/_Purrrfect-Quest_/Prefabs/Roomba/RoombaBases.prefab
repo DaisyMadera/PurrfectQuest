@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 411744376962162489}
   - component: {fileID: 2232050052459632571}
   m_Layer: 9
-  m_Name: Base
+  m_Name: RoombaBases
   m_TagString: Base
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
