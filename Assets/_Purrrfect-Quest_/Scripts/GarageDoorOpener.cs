@@ -23,7 +23,7 @@ public class GarageDoorOpener : MonoBehaviour
         // Ensure collision is with the Player and notificationManager is not null
         if (collision.CompareTag("Player") && notificationManager != null)
         {
-            NotificationManager.ShowNotification("Garage Door Opened!");
+            NotificationManager.ShowNotification("The Garage Door Has Been Opened!");
         }
     }
 }

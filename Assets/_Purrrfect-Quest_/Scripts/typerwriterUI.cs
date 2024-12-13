@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class typewriterUI : MonoBehaviour
@@ -12,6 +13,9 @@ public class typewriterUI : MonoBehaviour
     [SerializeField] private string leadingChar = "";
     [SerializeField] private bool leadingCharBeforeDelay = false;
 
+    [SerializeField] private Image spriteImage; // UI Image to display the sprite
+    [SerializeField] private Animator spriteAnimator; // Animator for sprite animation
+
     private void Awake()
     {
         _tmpProText = GetComponent<TMP_Text>();
@@ -19,19 +23,30 @@ public class typewriterUI : MonoBehaviour
         {
             Debug.LogError("TMP_Text component not found!");
         }
-    }
 
-    public void StartTypewriter(string message)
-    {
-        writer = message;
-        if (_tmpProText != null)
+        if (spriteImage != null)
         {
-            _tmpProText.text = "";
-            StartCoroutine(TypeWriterTMP());
+            spriteImage.enabled = false; // Ensure the sprite is hidden initially
         }
     }
 
-    private IEnumerator TypeWriterTMP()
+    public void StartTypewriter(string message, Sprite sprite = null)
+    {
+        Debug.Log($"Received message for typewriter: {message}"); // Debugging line
+        writer = message;
+
+        if (_tmpProText != null)
+        {
+            _tmpProText.text = ""; // Clear any existing text
+            StartCoroutine(TypeWriterTMP(sprite));
+        }
+        else
+        {
+            Debug.LogError("TMP_Text component is null. Cannot run typewriter effect.");
+        }
+    }
+
+    private IEnumerator TypeWriterTMP(Sprite sprite)
     {
         _tmpProText.text = leadingCharBeforeDelay ? leadingChar : "";
 
@@ -51,6 +66,28 @@ public class typewriterUI : MonoBehaviour
         if (leadingChar != "")
         {
             _tmpProText.text = _tmpProText.text.Substring(0, _tmpProText.text.Length - leadingChar.Length);
+        }
+
+        Debug.Log("Typewriter effect completed.");
+
+        // Handle the sprite display
+        if (spriteImage != null)
+        {
+            if (sprite != null)
+            {
+                spriteImage.sprite = sprite;
+                spriteImage.enabled = true;
+
+                // Trigger animation if animator exists
+                if (spriteAnimator != null)
+                {
+                    spriteAnimator.SetTrigger("PlayAnimation"); // Ensure you have a trigger in your Animator
+                }
+            }
+            else
+            {
+                Debug.Log("No sprite provided for this notification.");
+            }
         }
     }
 }

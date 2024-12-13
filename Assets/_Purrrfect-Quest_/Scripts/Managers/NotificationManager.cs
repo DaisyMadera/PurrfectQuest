@@ -11,19 +11,18 @@ public class NotificationManager : MonoBehaviour
 
     private void Awake()
     {
-        // Singleton pattern to ensure one instance persists
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); // Persist across scenes
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject); // Avoid duplicates
+            Destroy(gameObject);
         }
     }
 
-    public static void ShowNotification(string message)
+    public static void ShowNotification(string message, Sprite sprite = null)
     {
         if (instance == null)
         {
@@ -31,34 +30,36 @@ public class NotificationManager : MonoBehaviour
             return;
         }
 
-        instance.DisplayNotification(message);
+        instance.DisplayNotification(message, sprite);
     }
 
-    private void DisplayNotification(string message)
+    private void DisplayNotification(string message, Sprite sprite)
     {
-        // Instantiate the canvas prefab
         GameObject canvasInstance = Instantiate(canvasPrefab);
-
-        // Instantiate the text prefab as a child of the canvas
         GameObject textInstance = Instantiate(textPrefab, canvasInstance.transform);
 
-        // Set the message on the TMP_Text component
-        TMP_Text notificationText = textInstance.GetComponent<TMP_Text>();
-        if (notificationText != null)
+        typewriterUI typewriter = textInstance.GetComponent<typewriterUI>();
+        if (typewriter != null)
         {
-            notificationText.text = message; // Set the notification text
+            Debug.Log("Starting typewriter effect with optional sprite...");
+            typewriter.StartTypewriter(message, sprite);
+        }
+        else
+        {
+            TMP_Text notificationText = textInstance.GetComponent<TMP_Text>();
+            if (notificationText != null)
+            {
+                notificationText.text = message;
+            }
         }
 
-        // Start coroutine to wait for any key press
         StartCoroutine(WaitForAnyKey(canvasInstance));
     }
 
     private IEnumerator WaitForAnyKey(GameObject canvasInstance)
     {
-        // Wait until any key is pressed
         yield return new WaitUntil(() => Input.anyKeyDown);
-
-        // Destroy the notification canvas
         Destroy(canvasInstance);
+        Debug.Log("Notification closed.");
     }
 }
