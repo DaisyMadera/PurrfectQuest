@@ -28,6 +28,7 @@ public class StarCollector : MonoBehaviour
             {
                 roombaSpawner.SpawnRoomba();
             }
+            
         }
     }
 
