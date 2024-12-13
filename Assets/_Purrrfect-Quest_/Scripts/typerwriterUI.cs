@@ -14,8 +14,11 @@ public class typewriterUI : MonoBehaviour
     [SerializeField] private bool leadingCharBeforeDelay = false;
 
     [SerializeField] private Image spriteImage; // UI Image to display the sprite
-    // [SerializeField] private Animator spriteAnimator; // Animator for sprite animation
     [SerializeField] private Sprite optionalSprite; // Assign in the prefab if you want a default sprite
+
+    private bool isTyping = false; // Flag to check if typing is ongoing
+    private bool isWaitingForKey = false; // Flag to check if waiting for key press to close notification
+    private bool skipTyping = false; // Flag to skip typing
 
     private void Awake()
     {
@@ -33,18 +36,17 @@ public class typewriterUI : MonoBehaviour
 
     public void StartTypewriter(string message, Sprite sprite = null)
     {
-        Debug.Log($"Received message for typewriter: {message}\nSprite passed: {sprite}"); // Debugging line
+        Debug.Log($"Received message for typewriter: {message}\nSprite passed: {sprite}");
         writer = message;
+        skipTyping = false;
 
-        // Use the provided sprite, or fallback to the optional sprite
         if (spriteImage != null)
         {
             Sprite finalSprite = sprite != null ? sprite : optionalSprite;
             if (finalSprite != null)
             {
-                Debug.Log($"Setting spriteImage.sprite to {finalSprite.name}");
                 spriteImage.sprite = finalSprite;
-                spriteImage.enabled = false; // Initially hidden; enabled later
+                spriteImage.enabled = false;
             }
             else
             {
@@ -65,19 +67,22 @@ public class typewriterUI : MonoBehaviour
 
     private IEnumerator TypeWriterTMP()
     {
+        isTyping = true;
         _tmpProText.text = leadingCharBeforeDelay ? leadingChar : "";
 
-        yield return new WaitForSeconds(delayBeforeStart);
+        yield return new WaitForSecondsRealtime(delayBeforeStart);
 
         foreach (char c in writer)
         {
-            if (_tmpProText.text.Length > 0)
+            if (skipTyping)
             {
-                _tmpProText.text = _tmpProText.text.Substring(0, _tmpProText.text.Length - leadingChar.Length);
+                _tmpProText.text = writer; // Skip to the full text
+                break;
             }
+
             _tmpProText.text += c;
             _tmpProText.text += leadingChar;
-            yield return new WaitForSeconds(timeBtwChars);
+            yield return new WaitForSecondsRealtime(timeBtwChars);
         }
 
         if (leadingChar != "")
@@ -85,22 +90,44 @@ public class typewriterUI : MonoBehaviour
             _tmpProText.text = _tmpProText.text.Substring(0, _tmpProText.text.Length - leadingChar.Length);
         }
 
+        isTyping = false;
+        isWaitingForKey = true; // Start waiting for key press
         Debug.Log("Typewriter effect completed.");
 
-        // Display and animate the sprite if available
+        // Display the sprite if available
         if (spriteImage != null && spriteImage.sprite != null)
         {
             spriteImage.enabled = true;
-
-            // // Trigger animation if animator exists
-            // if (spriteAnimator != null)
-            // {
-            //     spriteAnimator.SetTrigger("PlayAnimation"); // Ensure a trigger exists in the Animator
-            // }
         }
         else
         {
             Debug.Log("No sprite to display after typewriter.");
         }
+    }
+
+    private void Update()
+    {
+        if (isTyping && Input.anyKeyDown)
+        {
+            // Skip typing and immediately display the full text
+            skipTyping = true;
+        }
+        else if (isWaitingForKey && Input.anyKeyDown)
+        {
+            // Close the notification and resume gameplay
+            CloseNotification();
+        }
+    }
+
+    private void CloseNotification()
+    {
+        Debug.Log("Notification closed. Resuming gameplay.");
+        isWaitingForKey = false;
+
+        // Destroy the notification GameObject
+        Destroy(gameObject);
+
+        // Resume gameplay if paused
+        Time.timeScale = 1f;
     }
 }

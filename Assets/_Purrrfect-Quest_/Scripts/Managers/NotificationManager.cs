@@ -9,6 +9,8 @@ public class NotificationManager : MonoBehaviour
     private static NotificationManager instance;
 
     [SerializeField] private float inputBlockTime = 5f; // Time to block input before allowing key press
+    private GameObject currentCanvasInstance; // Keep track of the active notification
+    private bool isPausedForNotification = false; // To prevent multiple notifications from pausing
 
     private void Awake()
     {
@@ -36,8 +38,14 @@ public class NotificationManager : MonoBehaviour
 
     private void DisplayNotification(string message, Sprite sprite)
     {
-        GameObject canvasInstance = Instantiate(canvasPrefab);
-        GameObject textInstance = Instantiate(textPrefab, canvasInstance.transform);
+        if (currentCanvasInstance != null)
+        {
+            Debug.LogWarning("A notification is already active. Ignoring new notification.");
+            return; // Prevent overlapping notifications
+        }
+
+        currentCanvasInstance = Instantiate(canvasPrefab);
+        GameObject textInstance = Instantiate(textPrefab, currentCanvasInstance.transform);
 
         typewriterUI typewriter = textInstance.GetComponent<typewriterUI>();
         if (typewriter != null)
@@ -54,10 +62,11 @@ public class NotificationManager : MonoBehaviour
             }
         }
 
-        StartCoroutine(WaitForAnyKey(canvasInstance));
+        PauseGame(); // Pause the game when the notification is displayed
+        StartCoroutine(WaitForAnyKey());
     }
 
-    private IEnumerator WaitForAnyKey(GameObject canvasInstance)
+    private IEnumerator WaitForAnyKey()
     {
         Debug.Log($"Blocking input for {inputBlockTime} seconds...");
         yield return new WaitForSeconds(inputBlockTime); // Block input for the specified time
@@ -65,7 +74,30 @@ public class NotificationManager : MonoBehaviour
         Debug.Log("Now waiting for key press to close notification...");
         yield return new WaitUntil(() => Input.anyKeyDown); // Wait for a key press after the block period
 
-        Destroy(canvasInstance);
+        Destroy(currentCanvasInstance); // Close the notification
+        currentCanvasInstance = null;
+
+        ResumeGame(); // Resume the game after the notification is closed
         Debug.Log("Notification closed.");
+    }
+
+    private void PauseGame()
+    {
+        if (!isPausedForNotification)
+        {
+            Time.timeScale = 0f; // Pause the game
+            isPausedForNotification = true;
+            Debug.Log("Game paused for notification.");
+        }
+    }
+
+    private void ResumeGame()
+    {
+        if (isPausedForNotification)
+        {
+            Time.timeScale = 1f; // Resume the game
+            isPausedForNotification = false;
+            Debug.Log("Game resumed after notification.");
+        }
     }
 }
