@@ -1,19 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Level2Initializer : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    Sprite mySprite;
+    private void Start()
     {
-        Debug.Log("Player active: " + (FindObjectOfType<PlayerMovement>() != null));
-        Debug.Log("Time scale: " + Time.timeScale);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Trigger a notification when this scene loads
+        NotificationManager.ShowNotification("You got out!\nPlease collect all the notes to find the next clue to where your person is!");
     }
 }
