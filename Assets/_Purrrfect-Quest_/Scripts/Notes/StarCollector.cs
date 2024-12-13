@@ -9,7 +9,6 @@ public class StarCollector : MonoBehaviour
     public int starsCollected = 0; // Current count of collected stars
     public TextMeshProUGUI starCounterText; // Reference to the HUD text
     public RoombaSpawner roombaSpawner;
-    public LawnmowerSpawner lawnmowerSpawner;
 
     void Start()
     {
@@ -29,10 +28,7 @@ public class StarCollector : MonoBehaviour
             {
                 roombaSpawner.SpawnRoomba();
             }
-            if (lawnmowerSpawner != null)
-            {
-                lawnmowerSpawner.SpawnLawnmower();
-            }
+            
         }
     }
 
