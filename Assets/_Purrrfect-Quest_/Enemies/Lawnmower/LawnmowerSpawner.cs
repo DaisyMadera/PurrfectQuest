@@ -10,6 +10,7 @@ public class LawnmowerSpawner : MonoBehaviour
 
     void Start()
     {
+        SpawnLawnmower();
     }
 
     public void SpawnLawnmower()

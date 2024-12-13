@@ -10,6 +10,7 @@ public class StarCollector : MonoBehaviour
     public TextMeshProUGUI starCounterText; // Reference to the HUD text
     private NotificationManager notificationManager;
     public RoombaSpawner roombaSpawner;
+    public watchdogSpawner watchdogSpawner;
 
     private void Awake()
     {
@@ -40,6 +41,11 @@ public class StarCollector : MonoBehaviour
             if (roombaSpawner != null)
             {
                 roombaSpawner.SpawnRoomba();
+            }
+
+            if (watchdogSpawner != null)
+            {  
+                watchdogSpawner.SpawnWatchdog(); 
             }
             
         }
