@@ -6,8 +6,9 @@ public class NotificationManager : MonoBehaviour
 {
     public GameObject canvasPrefab; // Reference to the notification canvas prefab
     public GameObject textPrefab;   // Reference to the text prefab
-
     private static NotificationManager instance;
+
+    [SerializeField] private float inputBlockTime = 5f; // Time to block input before allowing key press
 
     private void Awake()
     {
@@ -41,7 +42,7 @@ public class NotificationManager : MonoBehaviour
         typewriterUI typewriter = textInstance.GetComponent<typewriterUI>();
         if (typewriter != null)
         {
-            Debug.Log("Starting typewriter effect with optional sprite...");
+            Debug.Log($"Sprite passed to NotificationManager: {sprite}");
             typewriter.StartTypewriter(message, sprite);
         }
         else
@@ -58,7 +59,12 @@ public class NotificationManager : MonoBehaviour
 
     private IEnumerator WaitForAnyKey(GameObject canvasInstance)
     {
-        yield return new WaitUntil(() => Input.anyKeyDown);
+        Debug.Log($"Blocking input for {inputBlockTime} seconds...");
+        yield return new WaitForSeconds(inputBlockTime); // Block input for the specified time
+
+        Debug.Log("Now waiting for key press to close notification...");
+        yield return new WaitUntil(() => Input.anyKeyDown); // Wait for a key press after the block period
+
         Destroy(canvasInstance);
         Debug.Log("Notification closed.");
     }

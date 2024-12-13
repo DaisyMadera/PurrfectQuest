@@ -1,17 +1,17 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GarageDoorOpener : MonoBehaviour
 {
     private NotificationManager notificationManager;
 
+    public static bool openerCollected = false; // Static flag to track if the opener is collected
+
     private void Awake()
     {
         // Find and cache the NotificationManager reference
         notificationManager = FindObjectOfType<NotificationManager>();
 
-        // Optional: Log an error if NotificationManager is not found
         if (notificationManager == null)
         {
             Debug.LogError("NotificationManager not found in the scene!");
@@ -20,10 +20,12 @@ public class GarageDoorOpener : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Ensure collision is with the Player and notificationManager is not null
-        if (collision.CompareTag("Player") && notificationManager != null)
+        // Ensure collision is with the Player
+        if (collision.CompareTag("Player"))
         {
-            NotificationManager.ShowNotification("The Garage Door Has Been Opened!");
+            NotificationManager.ShowNotification("You can now leave through the garage doors!");
+            openerCollected = true; // Mark the opener as collected
+            Destroy(gameObject); // Destroy the opener object
         }
     }
 }

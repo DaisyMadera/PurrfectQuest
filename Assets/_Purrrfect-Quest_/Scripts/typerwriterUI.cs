@@ -14,7 +14,8 @@ public class typewriterUI : MonoBehaviour
     [SerializeField] private bool leadingCharBeforeDelay = false;
 
     [SerializeField] private Image spriteImage; // UI Image to display the sprite
-    [SerializeField] private Animator spriteAnimator; // Animator for sprite animation
+    // [SerializeField] private Animator spriteAnimator; // Animator for sprite animation
+    [SerializeField] private Sprite optionalSprite; // Assign in the prefab if you want a default sprite
 
     private void Awake()
     {
@@ -32,13 +33,29 @@ public class typewriterUI : MonoBehaviour
 
     public void StartTypewriter(string message, Sprite sprite = null)
     {
-        Debug.Log($"Received message for typewriter: {message}"); // Debugging line
+        Debug.Log($"Received message for typewriter: {message}\nSprite passed: {sprite}"); // Debugging line
         writer = message;
+
+        // Use the provided sprite, or fallback to the optional sprite
+        if (spriteImage != null)
+        {
+            Sprite finalSprite = sprite != null ? sprite : optionalSprite;
+            if (finalSprite != null)
+            {
+                Debug.Log($"Setting spriteImage.sprite to {finalSprite.name}");
+                spriteImage.sprite = finalSprite;
+                spriteImage.enabled = false; // Initially hidden; enabled later
+            }
+            else
+            {
+                Debug.Log("No sprite provided or assigned as optionalSprite.");
+            }
+        }
 
         if (_tmpProText != null)
         {
             _tmpProText.text = ""; // Clear any existing text
-            StartCoroutine(TypeWriterTMP(sprite));
+            StartCoroutine(TypeWriterTMP());
         }
         else
         {
@@ -46,7 +63,7 @@ public class typewriterUI : MonoBehaviour
         }
     }
 
-    private IEnumerator TypeWriterTMP(Sprite sprite)
+    private IEnumerator TypeWriterTMP()
     {
         _tmpProText.text = leadingCharBeforeDelay ? leadingChar : "";
 
@@ -70,24 +87,20 @@ public class typewriterUI : MonoBehaviour
 
         Debug.Log("Typewriter effect completed.");
 
-        // Handle the sprite display
-        if (spriteImage != null)
+        // Display and animate the sprite if available
+        if (spriteImage != null && spriteImage.sprite != null)
         {
-            if (sprite != null)
-            {
-                spriteImage.sprite = sprite;
-                spriteImage.enabled = true;
+            spriteImage.enabled = true;
 
-                // Trigger animation if animator exists
-                if (spriteAnimator != null)
-                {
-                    spriteAnimator.SetTrigger("PlayAnimation"); // Ensure you have a trigger in your Animator
-                }
-            }
-            else
-            {
-                Debug.Log("No sprite provided for this notification.");
-            }
+            // // Trigger animation if animator exists
+            // if (spriteAnimator != null)
+            // {
+            //     spriteAnimator.SetTrigger("PlayAnimation"); // Ensure a trigger exists in the Animator
+            // }
+        }
+        else
+        {
+            Debug.Log("No sprite to display after typewriter.");
         }
     }
 }

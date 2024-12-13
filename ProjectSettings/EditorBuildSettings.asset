@@ -11,5 +11,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Purrrfect-Quest_/Scenes/House.unity
     guid: bab83317b1e34164da594fe4d50c7870
+  - enabled: 1
+    path: Assets/_Purrrfect-Quest_/Scenes/Garden.unity
+    guid: 99fcb9642589f4bfa8a44a5bfeb1c3c4
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 561b9f83f43fd4d4faca04adb3ac8937, type: 2}
