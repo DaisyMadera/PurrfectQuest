@@ -8,12 +8,14 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenu;
+    public GameObject audioMenu;
     public bool isPaused;
 
     // Start is called before the first frame update
     void Start()
     {
         pauseMenu.SetActive(false);
+        audioMenu.SetActive(false);
     }
 
     // Update is called once per frame
@@ -21,7 +23,11 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isPaused)
+            if (audioMenu.activeSelf)
+            {
+                audioMenu.SetActive(false);
+            }
+            else if (isPaused)
             {
                 ResumeGame();
             }

@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7275f0af70aa742718d09d82029ea146, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puddlePrefab: {fileID: 1854967437692902983, guid: a9e5715bcf2334a94ba4d940430b8d52, type: 3}
+  puddlePrefab: {fileID: 4018069723200423377, guid: 277582a5816f38247a9543a75d52049b, type: 3}
   puddleLifetime: 5
   distanceThreshold: 3
 --- !u!212 &8926657549353531703
