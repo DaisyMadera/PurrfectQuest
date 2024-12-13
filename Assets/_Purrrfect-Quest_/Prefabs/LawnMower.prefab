@@ -169,7 +169,6 @@ MonoBehaviour:
   healthBarCanvas: {fileID: 1526732218313807480}
   healthBarImage: {fileID: 1909542535422479770}
   damageCooldown: 3
-  dashForce: 1500
 --- !u!50 &3778138943562872633
 Rigidbody2D:
   serializedVersion: 4
@@ -259,7 +258,7 @@ Animator:
   m_GameObject: {fileID: 4905406860826509264}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: eb2af18a24eb74c5591c525a7970be9b, type: 2}
+  m_Controller: {fileID: 9100000, guid: afa07216dc59d674f86b2b4f42816aba, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
