@@ -24,6 +24,7 @@ public class MouseEnemy : MonoBehaviour, IDamageable
     private Animator animator;
     private Rigidbody2D rb;
     private bool hasStolenHeart = false; // Ensures one heart stolen per interaction
+    private Vector2 movement;
 
     void Start()
     {
@@ -54,6 +55,8 @@ public class MouseEnemy : MonoBehaviour, IDamageable
                 RunBackToStart();
                 break;
         }
+
+        UpdateAnimatorParameters();
     }
 
     void DetectPlayer()
@@ -61,7 +64,6 @@ public class MouseEnemy : MonoBehaviour, IDamageable
         if (Vector3.Distance(transform.position, player.position) < detectionRadius)
         {
             currentState = State.ChasingPlayer;
-            animator.SetTrigger("alert"); // Play alert animation
             Debug.Log("Mouse detected the player!");
         }
     }
@@ -70,16 +72,14 @@ public class MouseEnemy : MonoBehaviour, IDamageable
     {
         if (player == null) return;
 
-        Vector3 direction = (player.position - transform.position).normalized;
-        rb.velocity = direction * speed;
-        // animator.SetBool("isWalking", true);
+        movement = (player.position - transform.position).normalized;
+        rb.velocity = movement * speed;
     }
 
     void RunBackToStart()
     {
-        Vector3 direction = (startPosition.position - transform.position).normalized;
-        rb.velocity = direction * speed * retreatSpeedMultiplier; // Runs back casually
-        // animator.SetBool("isWalking", true);
+        movement = (startPosition.position - transform.position).normalized;
+        rb.velocity = movement * speed * retreatSpeedMultiplier; // Runs back casually
 
         if (Vector3.Distance(transform.position, startPosition.position) < 0.1f)
         {
@@ -92,7 +92,6 @@ public class MouseEnemy : MonoBehaviour, IDamageable
         currentState = State.Idle;
         hasStolenHeart = false; // Reset stolen heart flag
         rb.velocity = Vector2.zero;
-        // animator.SetBool("isWalking", false);
         transform.position = startPosition.position; // Reset position to hole
         Debug.Log("Mouse returned to its hole and reset.");
     }
@@ -109,6 +108,7 @@ public class MouseEnemy : MonoBehaviour, IDamageable
         {
             DropCheese();
             ApplyKnockback();
+            currentState = State.RunningBackAfterStealing; // Switch to retreat after damage
             Debug.Log("Mouse took damage but is still alive!");
         }
     }
@@ -151,6 +151,16 @@ public class MouseEnemy : MonoBehaviour, IDamageable
 
             hasStolenHeart = true;
             currentState = State.RunningBackAfterStealing; // Transition to running back after stealing
+        }
+    }
+
+    private void UpdateAnimatorParameters()
+    {
+        // Update X and Y parameters based on the current movement direction
+        if (movement != Vector2.zero)
+        {
+            animator.SetFloat("X", movement.x);
+            animator.SetFloat("Y", movement.y);
         }
     }
 }
