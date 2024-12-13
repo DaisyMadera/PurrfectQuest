@@ -6,27 +6,32 @@ public class NotificationManager : MonoBehaviour
 {
     public GameObject canvasPrefab; // Reference to the notification canvas prefab
     public GameObject textPrefab;   // Reference to the text prefab
-    private static NotificationManager instance;
 
     [SerializeField] private float inputBlockTime = 5f; // Time to block input before allowing key press
     private GameObject currentCanvasInstance; // Keep track of the active notification
     private bool isPausedForNotification = false; // To prevent multiple notifications from pausing
 
-    private void Awake()
+    private void Start()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
+        // Ensure there is only one NotificationManager active in the scene
+        if (FindObjectsOfType<NotificationManager>().Length > 1)
         {
             Destroy(gameObject);
+            Debug.LogWarning("Multiple NotificationManagers detected. Destroying duplicates.");
+        }
+    }
+
+    public static NotificationManager Instance
+    {
+        get
+        {
+            return FindObjectOfType<NotificationManager>();
         }
     }
 
     public static void ShowNotification(string message, Sprite sprite = null)
     {
+        NotificationManager instance = Instance;
         if (instance == null)
         {
             Debug.LogError("NotificationManager not found in the scene!");
