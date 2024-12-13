@@ -14,6 +14,11 @@ public class WatchdogController : MonoBehaviour, IDamageable
     public float maxHealth = 8f;
     private float currentHealth;
 
+    public float GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
     [Header("Attack Settings")]
     public float damageToPlayer = 1f;
     public float bounceForce = 500f;
