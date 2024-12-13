@@ -16,7 +16,7 @@ public class LawnmowerController : MonoBehaviour, IDamageable
     private Transform playerTransform;
     private Rigidbody2D rb;
     private Vector2 movement;
-    private bool canTakeDamage = false;
+    private bool canTakeDamage = true;
     private GameManager gameManager;
 
     public Canvas healthBarCanvas; // Assign the Canvas in the Inspector
@@ -26,10 +26,6 @@ public class LawnmowerController : MonoBehaviour, IDamageable
     private bool canDamagePlayer = true;
     public float damageCooldown = 3f;
     private Animator anim;
-
-    // For dash attack
-    public float dashForce = 1000f;
-    private Vector2 lastPlayerPosition;
 
     void Start()
     {
@@ -42,7 +38,6 @@ public class LawnmowerController : MonoBehaviour, IDamageable
         if (playerObject != null)
         {
             playerTransform = playerObject.transform;
-            lastPlayerPosition = playerTransform.position;
         }
         else
         {
@@ -62,8 +57,6 @@ public class LawnmowerController : MonoBehaviour, IDamageable
         // Start wandering
         InvokeRepeating("SetRandomDirection", 0f, 1f); // Change direction every 2 seconds
 
-        // Start the attack routine
-        StartCoroutine(AttackRoutine());
     }
 
     void Update()
@@ -71,8 +64,6 @@ public class LawnmowerController : MonoBehaviour, IDamageable
         if (playerTransform == null)
             return;
 
-        // Track last player position
-        lastPlayerPosition = playerTransform.position;
 
         float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
 
@@ -116,14 +107,14 @@ public class LawnmowerController : MonoBehaviour, IDamageable
             {
                 // Deal damage to the player
                 collision.collider.GetComponent<CharacterHealth>().TakeDamage(damageToPlayer);
+                canDamagePlayer = false;
 
                 // Start damage cooldown
-                canDamagePlayer = false;
                 StartCoroutine(DamageCooldown());
 
                 // Bounce off the player
                 Vector2 bounceDirection = (transform.position - collision.transform.position).normalized;
-                rb.AddForce(bounceDirection * 500f); // Adjust force as needed
+                rb.AddForce(bounceDirection * 1000f); // Adjust force as needed
             }
         }
     }
@@ -158,24 +149,5 @@ public class LawnmowerController : MonoBehaviour, IDamageable
         {
             healthBarImage.fillAmount = currentHealth / maxHealth;
         }
-    }
-    private IEnumerator AttackRoutine()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(3f);
-            if (playerTransform != null)
-            {
-                DashAttack(lastPlayerPosition);
-            }
-        }
-    }
-
-    void DashAttack(Vector2 targetPosition)
-    {
-        // Calculate direction towards the last known player position
-        Vector2 direction = (targetPosition - (Vector2)transform.position).normalized;
-        // Add force for a dash
-        rb.AddForce(direction * dashForce);
     }
 }

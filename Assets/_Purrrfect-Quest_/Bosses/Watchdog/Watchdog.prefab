@@ -86,12 +86,12 @@ GameObject:
   m_Component:
   - component: {fileID: 6045192150430784374}
   - component: {fileID: 7754148326913658047}
-  - component: {fileID: -2528998219061647170}
   - component: {fileID: 3778138943562872633}
+  - component: {fileID: 6447926402930375987}
   - component: {fileID: 2003280518376727291}
   - component: {fileID: 2458803622044192430}
   m_Layer: 9
-  m_Name: LawnMower
+  m_Name: Watchdog
   m_TagString: Roomba
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,8 +106,8 @@ Transform:
   m_GameObject: {fileID: 4905406860826509264}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.2277, y: -0.2964, z: 0}
-  m_LocalScale: {x: 0.94665, y: 0.94665, z: 0.68580544}
+  m_LocalPosition: {x: -0.1359, y: -0.2046, z: 0}
+  m_LocalScale: {x: 1.13025, y: 1.13025, z: 0.8188154}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 965723700502598859}
@@ -148,28 +148,6 @@ CircleCollider2D:
   m_Offset: {x: -0.008395354, y: -0.012150049}
   serializedVersion: 2
   m_Radius: 0.38973966
---- !u!114 &-2528998219061647170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4905406860826509264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac40237057142884f8b87995d43ee199, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  detectionRange: 5
-  chaseSpeed: 3
-  wanderSpeed: 1.5
-  maxHealth: 7
-  damageToPlayer: 1
-  bounceForce: 1000
-  healthBarCanvas: {fileID: 1526732218313807480}
-  healthBarImage: {fileID: 1909542535422479770}
-  damageCooldown: 3
-  dashForce: 1500
 --- !u!50 &3778138943562872633
 Rigidbody2D:
   serializedVersion: 4
@@ -197,6 +175,33 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &6447926402930375987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4905406860826509264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e61c89ce687eac488629ecbc2ca7e9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRange: 5
+  chaseSpeed: 3
+  wanderSpeed: 1.5
+  maxHealth: 5
+  damageToPlayer: 1
+  bounceForce: 500
+  damageCooldown: 3
+  barkStunInterval: 4
+  barkDuration: 0.9
+  barkMaxRadius: 3
+  stunDuration: 2
+  barkRepeatCount: 3
+  healthBarCanvas: {fileID: 1526732218313807480}
+  healthBarImage: {fileID: 1909542535422479770}
+  barkRadiusVisualPrefab: {fileID: 3484560757740037861, guid: c48004922b5c3b947962fd54e6c0c71c, type: 3}
 --- !u!212 &2003280518376727291
 SpriteRenderer:
   m_ObjectHideFlags: 0
