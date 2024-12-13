@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class CharacterHealth : MonoBehaviour
 {
     [SerializeField] private float startingHealth;
+    [SerializeField] private AudioClip hurtSoundClip;
     public float currentHealth; // Now public and visible in Inspector
     private Animator anim;
     private bool dead;
@@ -32,6 +33,7 @@ public class CharacterHealth : MonoBehaviour
         if (currentHealth > 0)
         {
             anim.SetTrigger("hurt");//player hurt 
+            SoundFXManager.instance.PlaySoundFXClip(hurtSoundClip, transform, 1f);
 
         }
         else

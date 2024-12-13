@@ -1,45 +1,41 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MouseEnemy : MonoBehaviour, IDamageable
 {
-    public Transform startPosition; // Position where the mouse starts
-    public Transform endPosition; // Position where the mouse taunts and then returns to start
-    public float speed = 2.0f;
-    public float tauntDuration = 2.0f;
-    public float detectionRadius = 5.0f;
-    public float cooldownDuration = 5.0f; // Cooldown duration after returning to start
+    public Transform startPosition; // Position where the mouse starts (hole)
+    public float detectionRadius = 8.0f;
+    public float speed = 5.0f; // Base speed
+    public float retreatSpeedMultiplier = 1.5f; // Multiplier for retreating speed
     public float health = 50f; // Health value of the mouse
-    public GameObject dropItemPrefab;
+    public GameObject dropItemPrefab; // Item to drop when hit
+    public float damageToPlayer = 1.0f; // Amount of health to reduce on collision
+    public float knockbackForce = 500f; // Force applied when knocked back
 
     private enum State
     {
         Idle,
-        RunningToEnd,
-        Taunting,
-        RunningBackToStart,
-        Cooldown
+        ChasingPlayer,
+        RunningBackAfterStealing
     }
 
     private State currentState = State.Idle;
     private Transform player;
-    private float tauntTimer = 0.0f;
-    private float cooldownTimer = 0.0f;
-    private Animator animator; 
-    private bool isInterrupted = false;
-    private PlayerMovement playerMovement; // Reference to the player's movement script
+    private Animator animator;
+    private Rigidbody2D rb;
+    private bool hasStolenHeart = false; // Ensures one heart stolen per interaction
+    private Vector2 movement;
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
         transform.position = startPosition.position; // Set initial position to start
-        animator = GetComponent<Animator>(); // Get animator component
-        playerMovement = player.GetComponent<PlayerMovement>(); // Get the player's movement script
+        animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
 
-        if (playerMovement == null)
+        if (player == null)
         {
-            Debug.LogError("PlayerMovement component not found on Player object.");
+            Debug.LogError("Player object not found in the scene. Please ensure the Player object has the tag 'Player'.");
         }
     }
 
@@ -49,126 +45,122 @@ public class MouseEnemy : MonoBehaviour, IDamageable
         {
             case State.Idle:
                 DetectPlayer();
-                animator.SetBool("isIdle", true);
                 break;
 
-            case State.RunningToEnd:
-                if (playerMovement != null)
-                {
-                    playerMovement.enabled = false; // Prevent the player from moving
-                }
-                animator.SetBool("isIdle", false);
-                animator.SetBool("isWalkingDown", true);
-                MoveToPosition(endPosition.position);
-                if (Vector3.Distance(transform.position, endPosition.position) < 0.1f)
-                {
-                    currentState = State.Taunting;
-                    tauntTimer = tauntDuration;
-                    animator.SetBool("isWalkingDown", false);
-                    animator.SetTrigger("taunt"); // Trigger taunt animation
-                    Debug.Log("Mouse is taunting!");
-                }
+            case State.ChasingPlayer:
+                ChasePlayer();
                 break;
 
-            case State.Taunting:
-                tauntTimer -= Time.deltaTime;
-                // animator.SetBool("isIdle", false);
-                animator.SetBool("isTaunting", true);
-                if (playerMovement != null)
-                    {
-                        playerMovement.enabled = true; // Allow the player to move again
-                    }
-                if (isInterrupted)
-                {
-                    isInterrupted = false;
-                    currentState = State.RunningBackToStart;
-                    animator.SetBool("isTaunting", false);
-                    
-                }
-                else if (tauntTimer <= 0)
-                {
-                    currentState = State.RunningBackToStart;
-                    animator.SetBool("isTaunting", false);
-                }
-                break;
-
-            case State.RunningBackToStart:
-                MoveToPosition(startPosition.position);
-                animator.SetBool("isWalkingUp", true);
-                if (Vector3.Distance(transform.position, startPosition.position) < 0.1f)
-                {
-                    currentState = State.Cooldown;
-                    cooldownTimer = cooldownDuration;
-                    animator.SetBool("isWalkingUp", false);
-                    Debug.Log("Mouse is back at the start position. Entering cooldown.");
-                }
-                break;
-
-            case State.Cooldown:
-                cooldownTimer -= Time.deltaTime;
-                if (cooldownTimer <= 0)
-                {
-                    currentState = State.Idle;
-                    Debug.Log("Cooldown complete. Mouse can return.");
-                    animator.SetBool("isIdle", true);
-                }
+            case State.RunningBackAfterStealing:
+                RunBackToStart();
                 break;
         }
+
+        UpdateAnimatorParameters();
     }
 
     void DetectPlayer()
     {
-        if (currentState == State.Idle && Vector3.Distance(transform.position, player.position) < detectionRadius)
+        if (Vector3.Distance(transform.position, player.position) < detectionRadius)
         {
-            // animator.SetBool("isIdle", false);
-            animator.SetTrigger("alert"); // Trigger alert animation
+            currentState = State.ChasingPlayer;
             Debug.Log("Mouse detected the player!");
-            Invoke(nameof(StartMovingToEnd), 2f);
         }
     }
 
-    void StartMovingToEnd()
+    void ChasePlayer()
     {
-        currentState = State.RunningToEnd;
-        Debug.Log("Delay complete. Mouse is now moving to the end position.");
+        if (player == null) return;
+
+        movement = (player.position - transform.position).normalized;
+        rb.velocity = movement * speed;
     }
 
-    void MoveToPosition(Vector3 targetPosition)
+    void RunBackToStart()
     {
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+        movement = (startPosition.position - transform.position).normalized;
+        rb.velocity = movement * speed * retreatSpeedMultiplier; // Runs back casually
+
+        if (Vector3.Distance(transform.position, startPosition.position) < 0.1f)
+        {
+            ResetMouse();
+        }
+    }
+
+    void ResetMouse()
+    {
+        currentState = State.Idle;
+        hasStolenHeart = false; // Reset stolen heart flag
+        rb.velocity = Vector2.zero;
+        transform.position = startPosition.position; // Reset position to hole
+        Debug.Log("Mouse returned to its hole and reset.");
     }
 
     public void TakeDamage(float damage)
     {
-        if (currentState == State.Idle || currentState == State.Cooldown)
-        {
-            Debug.Log("Mouse cannot take damage while idle.");
-            return;
-        }
         health -= damage;
+
         if (health <= 0)
         {
             Die();
         }
         else
         {
-            Debug.Log("Mouse took damage while in state: " + currentState);
-            if (currentState == State.Taunting)
-            {
-                isInterrupted = true;
-                // Trigger injured animation
-            }
+            DropCheese();
+            ApplyKnockback();
+            currentState = State.RunningBackAfterStealing; // Switch to retreat after damage
+            Debug.Log("Mouse took damage but is still alive!");
         }
+    }
+
+    void ApplyKnockback()
+    {
+        if (player == null) return;
+
+        Vector2 knockbackDirection = (transform.position - player.position).normalized;
+        rb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+    }
+
+    void DropCheese()
+    {
+        if (dropItemPrefab == null) return;
+
+        Vector3 dropPosition = transform.position + (Vector3)(Random.insideUnitCircle * 0.5f); // Slightly offset
+        Instantiate(dropItemPrefab, dropPosition, Quaternion.identity);
+        Debug.Log("Mouse dropped a piece of cheese!");
     }
 
     void Die()
     {
         Debug.Log("Mouse has been defeated!");
-        // Play death animation 
-        if (dropItemPrefab != null)
-        {
-            Instantiate(dropItemPrefab, transform.position, Quaternion.identity);
-        }
+        DropCheese(); // Drop cheese on death
         Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Player") && !hasStolenHeart)
+        {
+            // Steal a heart
+            var playerHealth = collision.collider.GetComponent<CharacterHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(damageToPlayer);
+                Debug.Log("Mouse stole a heart!");
+            }
+
+            hasStolenHeart = true;
+            currentState = State.RunningBackAfterStealing; // Transition to running back after stealing
+        }
+    }
+
+    private void UpdateAnimatorParameters()
+    {
+        // Update X and Y parameters based on the current movement direction
+        if (movement != Vector2.zero)
+        {
+            animator.SetFloat("X", movement.x);
+            animator.SetFloat("Y", movement.y);
+        }
     }
 }
