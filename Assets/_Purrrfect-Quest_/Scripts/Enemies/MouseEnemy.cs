@@ -4,30 +4,33 @@ using UnityEngine;
 public class MouseEnemy : MonoBehaviour, IDamageable
 {
     public Transform startPosition; // Position where the mouse starts (hole)
-    public float speed = 5.0f;
     public float detectionRadius = 8.0f;
+    public float speed = 5.0f; // Base speed
+    public float retreatSpeedMultiplier = 1.5f; // Multiplier for retreating speed
     public float health = 50f; // Health value of the mouse
-    public GameObject dropItemPrefab;
+    public GameObject dropItemPrefab; // Item to drop when hit
+    public float damageToPlayer = 1.0f; // Amount of health to reduce on collision
+    public float knockbackForce = 500f; // Force applied when knocked back
 
     private enum State
     {
         Idle,
         ChasingPlayer,
-        Stealing,
-        RunningBackToStart
+        RunningBackAfterStealing
     }
 
     private State currentState = State.Idle;
     private Transform player;
-    private Animator animator; 
-    private Vector3 chaseDirection;
-    private bool hasStolenHeart = false;
+    private Animator animator;
+    private Rigidbody2D rb;
+    private bool hasStolenHeart = false; // Ensures one heart stolen per interaction
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
         transform.position = startPosition.position; // Set initial position to start
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
 
         if (player == null)
         {
@@ -47,7 +50,7 @@ public class MouseEnemy : MonoBehaviour, IDamageable
                 ChasePlayer();
                 break;
 
-            case State.RunningBackToStart:
+            case State.RunningBackAfterStealing:
                 RunBackToStart();
                 break;
         }
@@ -67,35 +70,16 @@ public class MouseEnemy : MonoBehaviour, IDamageable
     {
         if (player == null) return;
 
-        chaseDirection = (player.position - transform.position).normalized;
-        transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
-        animator.SetBool("isWalking", true);
-
-        if (Vector3.Distance(transform.position, player.position) < 0.5f && !hasStolenHeart)
-        {
-            StealHeart();
-        }
-    }
-
-    void StealHeart()
-    {
-        hasStolenHeart = true;
-        currentState = State.RunningBackToStart;
-        animator.SetTrigger("steal");
-        Debug.Log("Mouse stole a heart!");
-
-        // Decrease player's health
-        var playerHealth = player.GetComponent<CharacterHealth>();
-        if (playerHealth != null)
-        {
-            playerHealth.TakeDamage(1); // Steal one heart
-        }
+        Vector3 direction = (player.position - transform.position).normalized;
+        rb.velocity = direction * speed;
+        // animator.SetBool("isWalking", true);
     }
 
     void RunBackToStart()
     {
-        transform.position = Vector3.MoveTowards(transform.position, startPosition.position, speed * Time.deltaTime);
-        animator.SetBool("isWalking", true);
+        Vector3 direction = (startPosition.position - transform.position).normalized;
+        rb.velocity = direction * speed * retreatSpeedMultiplier; // Runs back casually
+        // animator.SetBool("isWalking", true);
 
         if (Vector3.Distance(transform.position, startPosition.position) < 0.1f)
         {
@@ -106,33 +90,67 @@ public class MouseEnemy : MonoBehaviour, IDamageable
     void ResetMouse()
     {
         currentState = State.Idle;
-        hasStolenHeart = false;
-        animator.SetBool("isWalking", false);
-        transform.position = startPosition.position;
+        hasStolenHeart = false; // Reset stolen heart flag
+        rb.velocity = Vector2.zero;
+        // animator.SetBool("isWalking", false);
+        transform.position = startPosition.position; // Reset position to hole
         Debug.Log("Mouse returned to its hole and reset.");
     }
 
     public void TakeDamage(float damage)
     {
         health -= damage;
+
         if (health <= 0)
         {
             Die();
         }
         else
         {
-            Debug.Log("Mouse took damage!");
+            DropCheese();
+            ApplyKnockback();
+            Debug.Log("Mouse took damage but is still alive!");
         }
+    }
+
+    void ApplyKnockback()
+    {
+        if (player == null) return;
+
+        Vector2 knockbackDirection = (transform.position - player.position).normalized;
+        rb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+    }
+
+    void DropCheese()
+    {
+        if (dropItemPrefab == null) return;
+
+        Vector3 dropPosition = transform.position + (Vector3)(Random.insideUnitCircle * 0.5f); // Slightly offset
+        Instantiate(dropItemPrefab, dropPosition, Quaternion.identity);
+        Debug.Log("Mouse dropped a piece of cheese!");
     }
 
     void Die()
     {
         Debug.Log("Mouse has been defeated!");
-        // Play death animation 
-        if (dropItemPrefab != null)
-        {
-            Instantiate(dropItemPrefab, transform.position, Quaternion.identity);
-        }
+        DropCheese(); // Drop cheese on death
         Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Player") && !hasStolenHeart)
+        {
+            // Steal a heart
+            var playerHealth = collision.collider.GetComponent<CharacterHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(damageToPlayer);
+                Debug.Log("Mouse stole a heart!");
+            }
+
+            hasStolenHeart = true;
+            currentState = State.RunningBackAfterStealing; // Transition to running back after stealing
+        }
     }
 }
