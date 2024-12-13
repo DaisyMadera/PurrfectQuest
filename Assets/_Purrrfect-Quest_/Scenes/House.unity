@@ -30190,7 +30190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasPrefab: {fileID: 4116463992091670460, guid: 1beaca377951a4c4b8537f57c90dbbb8, type: 3}
   textPrefab: {fileID: 3795956071306107385, guid: b4374637ed3650046be317e31efb919f, type: 3}
-  inputBlockTime: 1
+  inputBlockTime: 5
 --- !u!4 &1162831044
 Transform:
   m_ObjectHideFlags: 0
