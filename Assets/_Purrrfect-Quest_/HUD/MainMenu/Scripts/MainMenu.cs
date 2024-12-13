@@ -5,9 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public void playGame()
+    public void playLevel1()
     {
         SceneManager.LoadScene("House");
+    }
+
+    public void PlayLevel2()
+    {
+        SceneManager.LoadScene("Garden");
     }
 
     public void exitGame()
