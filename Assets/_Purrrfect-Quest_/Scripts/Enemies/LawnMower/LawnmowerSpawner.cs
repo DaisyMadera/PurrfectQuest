@@ -26,7 +26,7 @@ public class LawnmowerSpawner : MonoBehaviour
         int randomIndex = Random.Range(0, spawnPoints.Length);
         Transform spawnLocation = spawnPoints[randomIndex];
 
-        // Spawn the Roomba
+        // Spawn the LawnMower
         Instantiate(lawnmowerPrefab, spawnLocation.position, spawnLocation.rotation);
         lawnmowerSpawned = true;
     }
