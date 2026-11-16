@@ -13,15 +13,6 @@ Purrfect Quest is a team-developed 2D adventure game created with Unity and C#. 
 - Unity 2022.3 LTS
 - C#
 
-## My Contributions
-
-- [Describe the feature or system you personally worked on.]
-- [Add another specific contribution, if applicable.]
-
-## Screenshots
-
-Add screenshots of the main menu, gameplay, and level overview here.
-
 ## Running the Project
 
 1. Open the project folder in Unity Hub.
